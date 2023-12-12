@@ -25,6 +25,13 @@ Review.init(
         min: 1,
       },
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
+    },
     game_id: {
       type: DataTypes.INTEGER,
       references: {
