@@ -32,7 +32,14 @@ Review.init(
         key: 'id',
       },
     },
-  }
+  },
+  {
+    sequelize,
+    timestamps: true,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'review',
+  },
 );
 
 module.exports = Review;
