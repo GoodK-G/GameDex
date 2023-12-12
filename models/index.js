@@ -23,3 +23,9 @@ Game.hasMany(Review, {
 
 Review.belongsTo(Game);
 
+module.exports = {
+  User,
+  Game,
+  Review,
+  UserGames,
+};
