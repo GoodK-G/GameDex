@@ -32,6 +32,11 @@ router.get('/games/:gameID', async (req, res) => {
       }],
     });
 
+    if (!gameData) {
+      res.status(404).json({ message: 'No game exists with this id!' });
+      return;
+    };
+
     res.json(gameData);
   } catch (err) {
     res.status(500).json(err);
@@ -45,7 +50,7 @@ router.get('/reviews', async (req, res) => {
       attributes: ['id', 'content', 'rating', 'createdAt'],
       include: [{
         model: Game,
-        attributes: ['id', 'name', 'platform'],
+        attributes: ['id', 'name', 'cover', 'release_date'],
       }]
     });
 
