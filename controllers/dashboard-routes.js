@@ -25,12 +25,14 @@ router.get('/', async (req, res) => {
 });
 
 // Get route for individual game belonging to user through their dashboard
-router.get('/game/:gameID', async (req, res) => {
+router.get('/games/:gameID', async (req, res) => {
   try {
+    const gameData = await Game.findByPk(req.params.gameID);
 
+    res.json(gameData);
   } catch (err) {
-
-  }
+    res.status(500).json(err)
+  };
 })
 
 module.exports = router;
