@@ -98,7 +98,7 @@ router.get('/search', async (req, res) => {
       // Set size of image by replacing part of url link
       const cover = coverLink.replace('thumb', 'cover_big');
 
-      // Add the array with game info into gameArr array to be used to populate search results
+      // Add object with game info into gameArr array to be used to populate search results
       gameArr.push({ id, name, cover, releaseDate });
     };
 
