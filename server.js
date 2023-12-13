@@ -6,6 +6,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Import routes, sequelize connection and helpers for handlebars
 const sequelize = require('./config/connection');
+const routes = require('./controllers');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -24,6 +25,7 @@ const sess = {
 };
 
 app.use(session(sess));
+app.use(routes);
 
 const hbs = exphbs.create({});
 
