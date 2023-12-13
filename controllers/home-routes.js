@@ -67,7 +67,7 @@ router.get('/search', async (req, res) => {
         'Client-ID': process.env.API_ID,
         'Authorization': `Bearer ${process.env.API_TOKEN}`,
       },
-      body: `fields name,cover,first_release_date; search "${req.query.name}"; limit 15;`
+      body: `fields id,name,cover,first_release_date; search "${req.query.name}"; limit 15;`
     });
 
     const gameData = await response.json();
@@ -76,6 +76,7 @@ router.get('/search', async (req, res) => {
     let gameArr = [];
 
     for (let i = 0; i < gameData.length; i++) {
+      const id = gameData[i].id;
       const name = gameData[i].name;
       const releaseDate = gameData[i].first_release_date;
 
@@ -98,7 +99,7 @@ router.get('/search', async (req, res) => {
       const cover = coverLink.replace('thumb', 'cover_big');
 
       // Add the array with game info into gameArr array to be used to populate search results
-      gameArr.push([name, cover, releaseDate]);
+      gameArr.push({ id, name, cover, releaseDate });
     };
 
     res.json(gameArr);

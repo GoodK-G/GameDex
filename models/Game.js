@@ -10,15 +10,17 @@ Game.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    platform: {
+    cover: {
       type: DataTypes.STRING,
     },
+    release_date: {
+      type: DataTypes.INTEGER,
+    }
   },
   {
     sequelize,
