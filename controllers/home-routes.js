@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const { User, Game, Review } = require('../models');
 
+// Get route for homepage
 router.get('/', (req, res) => {
   res.render('homepage');
 });
 
+// Get route for games in database
 router.get('/games', async (req, res) => {
   try {
     const gameData = await Game.findAll();
@@ -15,6 +17,27 @@ router.get('/games', async (req, res) => {
   };
 });
 
+// Get route for specific game
+router.get('/games/:gameID', async (req, res) => {
+  try {
+    const gameData = await Game.findByPk(req.params.gameID, {
+      include: [{
+        model: Review,
+        attributes: ['id', 'content', 'rating', 'createdAt'],
+        include: [{
+          model: User,
+          attributes: ['id', 'username'],
+        }],
+      }],
+    });
+
+    res.json(gameData);
+  } catch (err) {
+    res.status(500).json(err);
+  };
+})
+
+// Get route for all reviews
 router.get('/reviews', async (req, res) => {
   try {
     const reviewData = await Review.findAll({
@@ -29,6 +52,6 @@ router.get('/reviews', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   };
-})
+});
 
 module.exports = router;
