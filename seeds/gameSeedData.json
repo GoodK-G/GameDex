@@ -1,22 +1,32 @@
 [
-  {
-    "name": "League of Legends",
-    "platform": "PC"
-  },
-  {
-    "name": "Fortnite",
-    "platform": "Xbox Series X"
-  },
-  {
-    "name": "Risk of Rain 2",
-    "platform": "PC"
-  },
-  {
-    "name": "Spider-Man 2",
-    "platform": "PS5"
-  },
-  {
-    "name": "Baldur's Gate 3",
-    "platform": "PC"
-  }
+	{
+		"id": 115,
+		"name": "League of Legends",
+		"cover": "https:////images.igdb.com/igdb/image/upload/t_cover_big/co49wj.jpg",
+		"release_date": 1256601600
+	},
+	{
+		"id": 1905,
+		"name": "Fortnite",
+		"cover": "https:////images.igdb.com/igdb/image/upload/t_cover_big/co2ekt.jpg",
+		"release_date": 1500940800
+	},
+	{
+		"id": 28512,
+		"name": "Risk of Rain 2",
+		"cover": "https:////images.igdb.com/igdb/image/upload/t_cover_big/co2eu7.jpg",
+		"release_date": 1553731200
+	},
+	{
+		"id": 127044,
+		"name": "Marvel's Spider-Man 2",
+		"cover": "https:////images.igdb.com/igdb/image/upload/t_cover_big/co79vq.jpg",
+		"release_date": 1697760000
+	},
+	{
+		"id": 119171,
+		"name": "Baldur's Gate 3",
+		"cover": "https:////images.igdb.com/igdb/image/upload/t_cover_big/co670h.jpg",
+		"release_date": 1601942400
+	}
 ]

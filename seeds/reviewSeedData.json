@@ -1,26 +1,26 @@
 [
   {
-    "content": "Leage of Legends is the best thing ever! It's so fun to play with other people!",
+    "content": "League of Legends is the best thing ever! It's so fun to play with other people!",
     "rating": 9,
     "user_id": 2,
-    "game_id": 1
+    "game_id": 115
   },
   {
     "content": "I'm terrible at it, but I still spend hours playing Fortnite with my friends",
     "rating": 7,
     "user_id": 1,
-    "game_id": 2
+    "game_id": 1905
   },
   {
     "content": "Baldur's Gate 3 is definitely GOTY!",
     "rating": 10,
     "user_id": 5,
-    "game_id": 5
+    "game_id": 119171
   },
   {
     "content": "I know a lot of people think Baldur's Gate 3 should be game of the year, but my vote is for Spider-Man 2. It's an action-packed adventure.",
     "rating": 10,
     "user_id": 1,
-    "game_id": 4
+    "game_id": 127044
   }
 ]
