@@ -1,0 +1,13 @@
+{{#if cover}}
+<img src="{{cover}}"/><br>
+{{/if}}
+
+<a href="/games/{{id}}">{{name}}</a><br>
+<a href="{{url}}" target="_blank">Link to IGDB Page</a><br>
+
+{{#if release_date}}
+<p>Release Date: {{formatReleaseDate release_date}}</p><br>
+{{else}}
+<p>Release Date: Not Available</p><br>
+{{/if}}
+

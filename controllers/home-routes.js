@@ -72,7 +72,7 @@ router.get('/search', async (req, res) => {
         'Client-ID': process.env.API_ID,
         'Authorization': `Bearer ${process.env.API_TOKEN}`,
       },
-      body: `fields id,name,cover,first_release_date; search "${req.query.name}"; limit 15;`
+      body: `fields id,name,cover,first_release_date,url; search "${req.query.name}"; limit 10;`
     });
 
     const gameData = await response.json();
@@ -84,6 +84,7 @@ router.get('/search', async (req, res) => {
       const id = gameData[i].id;
       const name = gameData[i].name;
       const release_date = gameData[i].first_release_date;
+      const url = gameData[i].url;
 
       // Fetch cover art for each game in search results
       const response = await fetch('https://api.igdb.com/v4/covers', {
@@ -109,16 +110,16 @@ router.get('/search', async (req, res) => {
       };
 
       // Add object with game info into gameArr array to be used to populate search results
-      gameArr.push({ id, name, cover, release_date });
+      gameArr.push({ id, name, cover, release_date, url });
     };
 
     // Add search results to game database and update fields if game
     // already exists in database
     await Game.bulkCreate(gameArr, {
-      updateOnDuplicate: ['name', 'cover', 'release_date']
+      updateOnDuplicate: ['name', 'cover', 'release_date', 'url']
     });
 
-    res.json(gameArr);
+    res.render('search-results', { gameArr });
   } catch (err) {
     res.status(500).json(err);
   };
