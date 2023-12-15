@@ -1,7 +1,7 @@
 const formatReleaseDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
 
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+  return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
 };
 
 module.exports = { formatReleaseDate };

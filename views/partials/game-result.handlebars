@@ -1,0 +1,11 @@
+{{#if cover}}
+<img src="{{cover}}"/>
+{{/if}}
+
+<a href="/games/{{id}}">{{name}}</a>
+
+{{#if release_date}}
+<p>Release Date: {{formatReleaseDate release_date}}</p>
+{{else}}
+<p>Release Date: Not Available</p>
+{{/if}}

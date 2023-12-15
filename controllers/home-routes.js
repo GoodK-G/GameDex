@@ -118,7 +118,7 @@ router.get('/search', async (req, res) => {
       updateOnDuplicate: ['name', 'cover', 'release_date']
     });
 
-    res.json(gameArr);
+    res.render('search-results', { gameArr });
   } catch (err) {
     res.status(500).json(err);
   };
