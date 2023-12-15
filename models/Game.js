@@ -20,7 +20,10 @@ Game.init(
     },
     release_date: {
       type: DataTypes.INTEGER,
-    }
+    },
+    url: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,
