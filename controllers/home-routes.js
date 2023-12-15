@@ -72,7 +72,7 @@ router.get('/search', async (req, res) => {
         'Client-ID': process.env.API_ID,
         'Authorization': `Bearer ${process.env.API_TOKEN}`,
       },
-      body: `fields id,name,cover,first_release_date; search "${req.query.name}"; limit 15;`
+      body: `fields id,name,cover,first_release_date; search "${req.query.name}"; limit 10;`
     });
 
     const gameData = await response.json();
