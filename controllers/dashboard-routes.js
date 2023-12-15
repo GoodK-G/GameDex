@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   try {
     const gameData = await User.findOne({
       where: {
-        id: req.session.userID,
+        id: req.session.user_id,
       },
       attributes: ['id', 'username'],
       include: [{
