@@ -83,7 +83,7 @@ router.get('/search', async (req, res) => {
     for (let i = 0; i < gameData.length; i++) {
       const id = gameData[i].id;
       const name = gameData[i].name;
-      const releaseDate = gameData[i].first_release_date;
+      const release_date = gameData[i].first_release_date;
 
       // Fetch cover art for each game in search results
       const response = await fetch('https://api.igdb.com/v4/covers', {
@@ -98,14 +98,25 @@ router.get('/search', async (req, res) => {
 
       const coverData = await response.json();
 
-      // Compile image link
-      const coverLink = `https://${coverData[0].url}`
-      // Set size of image by replacing part of url link
-      const cover = coverLink.replace('thumb', 'cover_big');
+      let cover;
+
+      // Create the image link if URL property is not undefined
+      if (coverData[0].url) {
+        // Compile image link
+        const coverLink = `https://${coverData[0].url}`
+        // Set size of image by replacing part of url link
+        cover = coverLink.replace('thumb', 'cover_big');
+      };
 
       // Add object with game info into gameArr array to be used to populate search results
-      gameArr.push({ id, name, cover, releaseDate });
+      gameArr.push({ id, name, cover, release_date });
     };
+
+    // Add search results to game database and update fields if game
+    // already exists in database
+    await Game.bulkCreate(gameArr, {
+      updateOnDuplicate: ['name', 'cover', 'release_date']
+    });
 
     res.json(gameArr);
   } catch (err) {

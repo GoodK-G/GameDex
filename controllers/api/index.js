@@ -1,10 +1,8 @@
 const routes = require('express').Router();
-const loginRoutes = require('./login');
-const userRoutes = require('./User');
+const userRoutes = require('./login');
 
 //This is the route that will be used for the login.
-routes.use('/login', loginRoutes);
-routes.use('/user', userRoutes);
+routes.use('/', userRoutes);
 
 
 module.exports = routes;
