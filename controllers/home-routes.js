@@ -81,10 +81,8 @@ router.get('/search', async (req, res) => {
     let gameArr = [];
 
     for (let i = 0; i < gameData.length; i++) {
-      const id = gameData[i].id;
-      const name = gameData[i].name;
-      const release_date = gameData[i].first_release_date;
-      const url = gameData[i].url;
+      // Destructure game object
+      const { id, name, url, first_release_date: release_date } = gameData[i];
 
       // Fetch cover art for each game in search results
       const response = await fetch('https://api.igdb.com/v4/covers', {
