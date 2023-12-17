@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Game } = require('../../models');
 require('dotenv').config();
 //create a new user
 router.post('/create', async(req,res) => {
@@ -8,6 +8,7 @@ router.post('/create', async(req,res) => {
         req.session.save(() =>{
             req.session.user_id = userData.id;
             req.session.logged_in = true;
+            req.session.user_games = [];
             res.status(200).json(userData);
         });
     }
@@ -21,7 +22,18 @@ router.post('/create', async(req,res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const userData = await User.findOne({ where: { username: req.body.username } });
+        const userData = await User.findOne({
+            where: {
+                username: req.body.username
+            },
+            include: [{
+                model: Game,
+                attributes: ['id'],
+                through: {
+                    attributes: []
+                }
+            }]
+        });
 
         if (!userData){
             res
@@ -38,9 +50,17 @@ router.post('/login', async (req, res) => {
             .json({ message: 'Incorrect username or password, please try again'});
         return;
     }
+
+    // Map the user's games to later store in session variable
+    let userGames = []
+    if (userData.games.length) {
+        userGames = userData.games.map((game) => game.id);
+    };
+
     req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
+        req.session.user_games = userGames;
         
         res.json({ user: userData, message: 'You have successfully logged in!'})
     });
