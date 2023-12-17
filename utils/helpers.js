@@ -1,7 +1,9 @@
-const formatReleaseDate = (timestamp) => {
-  const date = new Date(timestamp * 1000);
+const { DateTime } = require('luxon');
 
-  return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+const formatReleaseDate = (timestamp) => {
+  const dt = DateTime.fromSeconds(timestamp).toUTC();
+
+  return dt.toLocaleString(DateTime.DATE_FULL);
 };
 
 module.exports = { formatReleaseDate };

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Game, Review } = require('../models');
 
-// Get route for user dashboard
+// Get route for user profile
 router.get('/', async (req, res) => {
   try {
     const gameData = await User.findOne({
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   };
 });
 
-// Get route for individual game belonging to user through their dashboard
+// Get route for individual game belonging to user through their profile
 router.get('/games/:gameID', async (req, res) => {
   try {
     const gameData = await Game.findByPk(req.params.gameID);
