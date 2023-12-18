@@ -16,3 +16,19 @@ router.post("/review/:gameID", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+//delete review
+router.delete("/review/:reviewID", async (req, res) => {
+  try {
+    const reviewData = await Review.destroy({
+      where: {
+        id: req.params.reviewID,
+        user_id: req.session.user_id,
+      },
+    });
+
+    res.json(reviewData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
