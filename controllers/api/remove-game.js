@@ -6,7 +6,7 @@ router.delete('/', async (req, res) => {
   try {
     const data = await UserGames.destroy({
       where: {
-        user_id: req.body.user_id,
+        user_id: req.session.user_id,
         game_id: req.body.game_id
       }
     });
