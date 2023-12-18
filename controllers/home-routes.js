@@ -30,10 +30,7 @@ router.get('/', async (req, res) => {
     res.render('homepage', { gameArr });
   } catch (err) {
     res.status(500).json(err);
-  };
-
-
-  
+  };  
 });
 
 router.get('/login', (req, res) => {
