@@ -6,6 +6,7 @@ const { createGameArray, gameFetch } = require('../utils/game_fetch');
 // Get route for homepage
 router.get('/', async (req, res) => {
   try {
+    // Fetch highest rated games with at least 150 ratings
     const fetchBody = 'fields id,name,cover,first_release_date,url,rating,summary; where rating_count > 149; sort rating desc; limit 10;'
     const response = await gameFetch(fetchBody);
 
