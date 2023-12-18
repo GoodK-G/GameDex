@@ -1,9 +1,15 @@
 const { DateTime } = require('luxon');
 
+// Convert UNIX timestamp from database to readable full date
 const formatReleaseDate = (timestamp) => {
   const dt = DateTime.fromSeconds(timestamp).toUTC();
 
   return dt.toLocaleString(DateTime.DATE_FULL);
 };
 
-module.exports = { formatReleaseDate };
+// Check if user has game in their profile
+const hasGame = (id) => {
+  return req.session.user_games.includes(id);
+};
+
+module.exports = { formatReleaseDate, hasGame };

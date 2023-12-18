@@ -1,10 +1,30 @@
 const router = require('express').Router();
 require('dotenv').config();
 const { User, Game, Review } = require('../models');
+const { createGameArray, gameFetch } = require('../utils/game-fetch');
 
 // Get route for homepage
-router.get('/', (req, res) => {
-  res.render('homepage');
+router.get('/', async (req, res) => {
+  try {
+    // Fetch highest rated games with at least 150 ratings
+    const fetchBody = 'fields id,name,cover,first_release_date,url,rating,summary; where rating_count > 149; sort rating desc; limit 10;'
+    const response = await gameFetch(fetchBody);
+
+    const gameData = await response.json();
+
+    // Create new game array from game data
+    const gameArr = await createGameArray(gameData);
+
+    // Add search results to game database and update fields if game
+    // already exists in database
+    await Game.bulkCreate(gameArr, {
+      updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
+    });
+    
+    res.render('homepage', { gameArr });
+  } catch (err) {
+    res.status(500).json(err);
+  };  
 });
 
 router.get('/login', (req, res) => {
@@ -54,7 +74,7 @@ router.get('/reviews', async (req, res) => {
       attributes: ['id', 'content', 'rating', 'createdAt'],
       include: [{
         model: Game,
-        attributes: ['id', 'name', 'cover', 'release_date'],
+        attributes: ['id', 'name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary'],
       }]
     });
 
@@ -69,56 +89,18 @@ router.get('/reviews', async (req, res) => {
 router.get('/search', async (req, res) => {
   try {
     // Fetch game based on search query
-    const response = await fetch('https://api.igdb.com/v4/games', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Client-ID': process.env.API_ID,
-        'Authorization': `Bearer ${process.env.API_TOKEN}`,
-      },
-      body: `fields id,name,cover,first_release_date,url; search "${req.query.name}"; limit 10;`
-    });
+    const fetchBody = `fields id,name,cover,first_release_date,url,rating,summary; search "${req.query.name}"; limit 10;`
+    const response = await gameFetch(fetchBody);
 
     const gameData = await response.json();
 
-    // Set empty game array variable
-    let gameArr = [];
-
-    for (let i = 0; i < gameData.length; i++) {
-      // Destructure game object
-      const { id, name, url, first_release_date: release_date } = gameData[i];
-
-      // Fetch cover art for each game in search results
-      const response = await fetch('https://api.igdb.com/v4/covers', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Client-ID': process.env.API_ID,
-          'Authorization': `Bearer ${process.env.API_TOKEN}`,
-        },
-        body: `fields url; where id = ${gameData[i].cover};`
-      });
-
-      const coverData = await response.json();
-
-      let cover;
-
-      // Create the image link if URL property is not undefined
-      if (coverData[0].url) {
-        // Compile image link
-        const coverLink = `https://${coverData[0].url}`
-        // Set size of image by replacing part of url link
-        cover = coverLink.replace('thumb', 'cover_big');
-      };
-
-      // Add object with game info into gameArr array to be used to populate search results
-      gameArr.push({ id, name, cover, release_date, url });
-    };
+    // Create new game array from game data
+    const gameArr = await createGameArray(gameData);
 
     // Add search results to game database and update fields if game
     // already exists in database
     await Game.bulkCreate(gameArr, {
-      updateOnDuplicate: ['name', 'cover', 'release_date', 'url']
+      updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
     });
 
     res.render('search-results', { gameArr });

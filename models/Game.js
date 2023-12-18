@@ -24,6 +24,12 @@ Game.init(
     url: {
       type: DataTypes.STRING,
     },
+    igdb_rating: {
+      type: DataTypes.DECIMAL(4, 2),
+    },
+    summary: {
+      type: DataTypes.TEXT,
+    }
   },
   {
     sequelize,

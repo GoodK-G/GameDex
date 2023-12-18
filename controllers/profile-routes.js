@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
       attributes: ['id', 'username'],
       include: [{
         model: Game,
-        attributes: ['id', 'name', 'cover', 'release_date'],
+        attributes: ['id', 'name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary'],
         through: {
           attributes: [],
         }
