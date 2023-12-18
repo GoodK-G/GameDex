@@ -1,7 +1,7 @@
 const router = require('express').Router();
 require('dotenv').config();
 const { User, Game, Review } = require('../models');
-const { createGameArray, gameFetch } = require('../utils/game_fetch');
+const { createGameArray, gameFetch } = require('../utils/game-fetch');
 
 // Get route for homepage
 router.get('/', async (req, res) => {
