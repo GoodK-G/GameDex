@@ -1,20 +1,13 @@
 const router = require('express').Router();
 require('dotenv').config();
 const { User, Game, Review } = require('../models');
-const { createGameArray } = require('../utils/game_fetch');
+const { createGameArray, gameFetch } = require('../utils/game_fetch');
 
 // Get route for homepage
 router.get('/', async (req, res) => {
   try {
-    const response = await fetch('https://api.igdb.com/v4/games', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Client-ID': process.env.API_ID,
-        'Authorization': `Bearer ${process.env.API_TOKEN}`,
-      },
-      body: `fields id,name,cover,first_release_date,url,rating,summary; where rating_count > 149; sort rating desc; limit 10;`
-    });
+    const fetchBody = 'fields id,name,cover,first_release_date,url,rating,summary; where rating_count > 149; sort rating desc; limit 10;'
+    const response = await gameFetch(fetchBody);
 
     const gameData = await response.json();
 
@@ -95,15 +88,8 @@ router.get('/reviews', async (req, res) => {
 router.get('/search', async (req, res) => {
   try {
     // Fetch game based on search query
-    const response = await fetch('https://api.igdb.com/v4/games', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Client-ID': process.env.API_ID,
-        'Authorization': `Bearer ${process.env.API_TOKEN}`,
-      },
-      body: `fields id,name,cover,first_release_date,url,rating,summary; search "${req.query.name}"; limit 10;`
-    });
+    const fetchBody = `fields id,name,cover,first_release_date,url,rating,summary; search "${req.query.name}"; limit 10;`
+    const response = await gameFetch(fetchBody);
 
     const gameData = await response.json();
 

@@ -27,6 +27,7 @@ const retrieveGameCover = async (coverID) => {
   return cover;
 };
 
+// Function for creating game array
 const createGameArray = async (gameData) => {
   let gameArr = [];
 
@@ -42,6 +43,21 @@ const createGameArray = async (gameData) => {
   };
 
   return gameArr;
+};
+
+// Fetch game list from IGDB API
+const gameFetch = async (fetchBody) => {
+  const response = await fetch('https://api.igdb.com/v4/games', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Client-ID': process.env.API_ID,
+      'Authorization': `Bearer ${process.env.API_TOKEN}`,
+    },
+    body: fetchBody
+  });
+
+  return response;
 }
 
-module.exports = { createGameArray };
+module.exports = { createGameArray, gameFetch };
