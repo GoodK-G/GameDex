@@ -21,7 +21,7 @@ router.get('/', withAuth, async (req, res) => {
 
     const games = userData.games.map((game) => game.get({ plain: true }));
 
-    res.render('user-profile', { games });
+    res.render('user-profile', { games, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };

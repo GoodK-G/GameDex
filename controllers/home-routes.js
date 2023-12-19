@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
       updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
     });
     
-    res.render('homepage', { gameArr });
+    res.render('homepage', { gameArr, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };  
@@ -74,7 +74,7 @@ router.get("/games/:gameID", withAuth, async (req, res) => {
     const game = gameData.get({ plain: true });
     console.log("game:", game);
 
-    res.render("game", { game, userGames: req.session.user_games });
+    res.render("game", { game, userGames: req.session.user_games, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -116,7 +116,7 @@ router.get('/search', async (req, res) => {
       updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
     });
 
-    res.render('search-results', { gameArr });
+    res.render('search-results', { gameArr, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };
