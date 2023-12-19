@@ -86,12 +86,11 @@ router.get("/games/:gameID", withAuth, async (req, res) => {
 });
 
 router.get("/review/:gameID", withAuth, async (req, res) => {
-  res.render(
-    "new-review" /* {
+  res.render("new-review", {
     user_id: req.session.user_id,
     game_id: req.params.gameID,
-  } */
-  );
+    loggedIn: req.session.logged_in,
+  });
 });
 
 // Get route for all reviews
