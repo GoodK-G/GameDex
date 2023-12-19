@@ -14,3 +14,10 @@
 {{#if summary}}
 <p>{{summary}}</p>
 {{/if}}
+
+<h5>Reviews</h5><br />
+{{#if reviews}}
+{{#each reviews as |review|}}
+{{> reviews}}
+{{/each}}
+{{/if}}
