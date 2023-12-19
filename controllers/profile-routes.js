@@ -4,9 +4,9 @@ const { User, Game, Review } = require('../models');
 // Get route for user profile
 router.get('/', async (req, res) => {
   try {
-    const gameData = await User.findOne({
+    const userData = await User.findOne({
       where: {
-        id: req.session.user_id,
+        id: 2,
       },
       attributes: ['id', 'username'],
       include: [{
@@ -18,7 +18,9 @@ router.get('/', async (req, res) => {
       }],
     });
 
-    res.json(gameData);    
+    const games = userData.games.map((game) => game.get({ plain: true }));
+
+    res.render('user-profile', { games });
   } catch (err) {
     res.status(500).json(err);
   };
