@@ -3,7 +3,7 @@ const { Review } = require("../../models");
 require("dotenv").config();
 
 //create new review
-router.post("/review/:gameID", async (req, res) => {
+router.post("/:gameID", async (req, res) => {
   try {
     const newReview = await Review.create({
       rating: req.body.rating,
@@ -18,7 +18,7 @@ router.post("/review/:gameID", async (req, res) => {
 });
 
 //delete review
-router.delete("/review/:reviewID", async (req, res) => {
+router.delete("/:reviewID", async (req, res) => {
   try {
     const reviewData = await Review.destroy({
       where: {
