@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
-        id: 2,
+        id: req.session.user_id,
       },
       attributes: ['id', 'username'],
       include: [{
