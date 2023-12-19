@@ -1,0 +1,16 @@
+<h3>{{name}}</h3><br />
+{{#if cover}}
+  <img src="{{cover}}" /><br /> 
+{{/if}}
+
+<a href="{{url}}" target="_blank">IGDB rating: {{igdb_rating}}</a><br />
+
+{{#if release_date}}
+  <p>Release Date: {{formatReleaseDate release_date}}</p><br />
+{{else}}
+  <p>Release Date: Not Available</p><br />
+{{/if}}
+
+{{#if summary}}
+<p>{{summary}}</p>
+{{/if}}
