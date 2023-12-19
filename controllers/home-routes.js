@@ -2,6 +2,7 @@ const router = require('express').Router();
 require('dotenv').config();
 const { User, Game, Review } = require('../models');
 const { createGameArray, gameFetch } = require('../utils/game-fetch');
+const withAuth = require('../utils/auth');
 
 // Get route for homepage
 router.get('/', async (req, res) => {
@@ -47,7 +48,7 @@ router.get('/games', async (req, res) => {
 });
 
 // Get route for specific game
-router.get("/games/:gameID", async (req, res) => {
+router.get("/games/:gameID", withAuth, async (req, res) => {
   try {
     console.log("req.params.gameID:", req.params.gameID);
     const gameData = await Game.findByPk(req.params.gameID, {
@@ -80,7 +81,7 @@ router.get("/games/:gameID", async (req, res) => {
 });
 
 // Get route for all reviews
-router.get('/reviews', async (req, res) => {
+router.get('/reviews', withAuth, async (req, res) => {
   try {
     const reviewData = await Review.findAll({
       attributes: ['id', 'content', 'rating', 'createdAt'],

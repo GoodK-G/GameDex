@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { User, Game, Review } = require('../models');
+const withAuth = require('../utils/auth');
 
 // Get route for user profile
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get route for individual game belonging to user through their profile
-router.get('/games/:gameID', async (req, res) => {
+router.get('/games/:gameID', withAuth, async (req, res) => {
   try {
     const gameData = await Game.findByPk(req.params.gameID);
 
