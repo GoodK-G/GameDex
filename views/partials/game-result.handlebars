@@ -1,8 +1,9 @@
 {{#if cover}}
-<img src="{{cover}}"/><br>
+<a href="/games/{{id}}"><img src="{{cover}}"/></a><br>
+{{else}}
+<a href="/games/{{id}}">{{name}}</a><br>
 {{/if}}
 
-<a href="/games/{{id}}">{{name}}</a><br>
 <a href="{{url}}" target="_blank">Link to IGDB Page</a><br>
 
 {{#if release_date}}
