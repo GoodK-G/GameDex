@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Game, Review, UserGames } = require("../../models");
+const createUserGamesArray = require('../../utils/user-games-array')
 
 router.get("/:gameID", async (req, res) => {
   try {
@@ -47,7 +48,12 @@ router.post("/", async (req, res) => {
       game_id: req.body.game_id,
     });
 
-    res.status(200).json(userGameData);
+    const userGames = await createUserGamesArray(req.session.user_id);
+
+    req.session.save(() => {
+      req.session.user_games = userGames;
+      res.status(200).json(userGameData);
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -62,7 +68,12 @@ router.delete("/", async (req, res) => {
       },
     });
 
-    res.json(data);
+    const userGames = await createUserGamesArray(req.session.user_id);
+
+    req.session.save(() => {
+      req.session.user_games = userGames;
+      res.json(data);
+    });
   } catch (err) {
     res.status(500).json(err);
   }

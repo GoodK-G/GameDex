@@ -73,7 +73,7 @@ router.get("/games/:gameID", async (req, res) => {
     const game = gameData.get({ plain: true });
     console.log("game:", game);
 
-    res.render("game", { game });
+    res.render("game", { game, userGames: req.session.user_games });
   } catch (err) {
     res.status(500).json(err);
   }
