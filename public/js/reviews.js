@@ -12,7 +12,7 @@ const addReview = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ review }),
+    body: JSON.stringify(review),
   });
 
   if (response.ok) {
