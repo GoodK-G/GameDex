@@ -72,12 +72,25 @@ router.get("/games/:gameID", withAuth, async (req, res) => {
     } */
 
     const game = gameData.get({ plain: true });
-    console.log("game:", game);
+    console.log("req.session.user_id", req.session.user_id);
 
-    res.render("game", { game, userGames: req.session.user_games, loggedIn: req.session.logged_in });
+    res.render("game", {
+      game,
+      userGames: req.session.user_games,
+      loggedIn: req.session.logged_in,
+      sessionID: req.session.user_id,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.get("/review/:gameID", withAuth, async (req, res) => {
+  res.render("new-review", {
+    user_id: req.session.user_id,
+    game_id: req.params.gameID,
+    loggedIn: req.session.logged_in,
+  });
 });
 
 // Get route for all reviews
