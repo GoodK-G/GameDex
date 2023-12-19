@@ -2,6 +2,7 @@ const router = require('express').Router();
 require('dotenv').config();
 const { User, Game, Review } = require('../models');
 const { createGameArray, gameFetch } = require('../utils/game-fetch');
+const withAuth = require('../utils/auth');
 
 // Get route for homepage
 router.get('/', async (req, res) => {
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
       updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
     });
     
-    res.render('homepage', { gameArr });
+    res.render('homepage', { gameArr, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };  
@@ -29,6 +30,10 @@ router.get('/', async (req, res) => {
 
 router.get('/login', (req, res) => {
   res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+  res.render('signup');
 });
 
 // Get route for games in database
@@ -43,7 +48,7 @@ router.get('/games', async (req, res) => {
 });
 
 // Get route for specific game
-router.get("/games/:gameID", async (req, res) => {
+router.get("/games/:gameID", withAuth, async (req, res) => {
   try {
     console.log("req.params.gameID:", req.params.gameID);
     const gameData = await Game.findByPk(req.params.gameID, {
@@ -69,14 +74,14 @@ router.get("/games/:gameID", async (req, res) => {
     const game = gameData.get({ plain: true });
     console.log("game:", game);
 
-    res.render("game", { game });
+    res.render("game", { game, userGames: req.session.user_games, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // Get route for all reviews
-router.get('/reviews', async (req, res) => {
+router.get('/reviews', withAuth, async (req, res) => {
   try {
     const reviewData = await Review.findAll({
       attributes: ['id', 'content', 'rating', 'createdAt'],
@@ -111,7 +116,7 @@ router.get('/search', async (req, res) => {
       updateOnDuplicate: ['name', 'cover', 'release_date', 'url', 'igdb_rating', 'summary']
     });
 
-    res.render('search-results', { gameArr });
+    res.render('search-results', { gameArr, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };

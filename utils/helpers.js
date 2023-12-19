@@ -8,8 +8,8 @@ const formatReleaseDate = (timestamp) => {
 };
 
 // Check if user has game in their profile
-const hasGame = (id) => {
-  return req.session.user_games.includes(id);
+const hasGame = (id, userGames) => {
+  return userGames.includes(id);
 };
 
 module.exports = { formatReleaseDate, hasGame };
