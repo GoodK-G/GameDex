@@ -43,29 +43,37 @@ router.get('/games', async (req, res) => {
 });
 
 // Get route for specific game
-router.get('/games/:gameID', async (req, res) => {
+router.get("/games/:gameID", async (req, res) => {
   try {
+    console.log("req.params.gameID:", req.params.gameID);
     const gameData = await Game.findByPk(req.params.gameID, {
-      include: [{
-        model: Review,
-        attributes: ['id', 'content', 'rating', 'createdAt'],
-        include: [{
-          model: User,
-          attributes: ['id', 'username'],
-        }],
-      }],
+      include: [
+        {
+          model: Review,
+          attributes: ["id", "content", "rating", "createdAt"],
+          include: [
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
+          ],
+        },
+      ],
     });
 
-    if (!gameData) {
-      res.status(404).json({ message: 'No game exists with this id!' });
+    /* if (!gameData) {
+      res.status(404).json({ message: "Game not found" });
       return;
-    };
+    } */
 
-    res.json(gameData);
+    const game = gameData.get({ plain: true });
+    console.log("game:", game);
+
+    res.render("game", { game });
   } catch (err) {
     res.status(500).json(err);
-  };
-})
+  }
+});
 
 // Get route for all reviews
 router.get('/reviews', async (req, res) => {

@@ -1,23 +1,23 @@
-<h3>{{name}}</h3><br />
-{{#if cover}}
-  <img src="{{cover}}" /><br /> 
+<h3>{{game.name}}</h3><br />
+{{#if game.cover}}
+  <img src="{{game.cover}}" /><br /> 
 {{/if}}
 
-<a href="{{url}}" target="_blank">IGDB rating: {{igdb_rating}}</a><br />
+<a href="{{game.url}}" target="_blank">IGDB rating: {{game.igdb_rating}}</a><br />
 
-{{#if release_date}}
-  <p>Release Date: {{formatReleaseDate release_date}}</p><br />
+{{#if game.release_date}}
+  <p>Release Date: {{formatReleaseDate game.release_date}}</p><br />
 {{else}}
   <p>Release Date: Not Available</p><br />
 {{/if}}
 
-{{#if summary}}
-<p>{{summary}}</p>
+{{#if game.summary}}
+<p>{{game.summary}}</p>
 {{/if}}
 
 <h5>Reviews</h5><br />
-{{#if reviews}}
-{{#each reviews as |review|}}
+{{#if game.reviews}}
+{{#each game.reviews as |review|}}
 {{> reviews}}
 {{/each}}
 {{/if}}
