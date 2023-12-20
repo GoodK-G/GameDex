@@ -12,9 +12,9 @@
 {{/if}}
 
 {{#if (hasGame game.id userGames)}}
-<button type="button" id="removeBtn">Remove Game from Library</button><br /><br>
+<button type="button" class="btn btn-primary" id="removeBtn">Remove Game from Library</button><br /><br>
 {{else}}
-<button type="button" id="addBtn">Add Game to Library</button><br /><br>
+<button type="button" class="btn btn-primary" id="addBtn">Add Game to Library</button><br /><br>
 {{/if}}
 
 {{#if game.summary}}
@@ -32,4 +32,3 @@
 {{else}}
 <script src="/js/addGame.js"></script>
 {{/if}}
-<script src="/js/reviews.js"></script>
