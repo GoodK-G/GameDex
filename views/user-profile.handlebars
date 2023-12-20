@@ -1,13 +1,13 @@
-<!-- <h3>Highest Rated Games on IGDB</h3>
+<h2>User Library</h2>
 <br>
-{{#each gameArr}}
-{{> game-result}}
-{{/each}} -->
-
 <div class="col py-3">
   <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-4">
-    {{#each gameArr}}
+    {{#if games.length}}
+    {{#each games}}
       {{> game-card}}
     {{/each}}
+    {{else}}
+    <h4>No games are added to your library!</h4>
+    {{/if}}
   </div>
 </div>

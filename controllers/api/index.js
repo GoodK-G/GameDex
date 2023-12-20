@@ -1,7 +1,7 @@
 const routes = require("express").Router();
 const userRoutes = require("./login");
 const reviewRoutes = require("./reviews");
-const gamesRoutes = require("./remove-game", "./add-game");
+const gamesRoutes = require("./games");
 
 //This is the route that will be used for the login.
 routes.use("/", userRoutes);

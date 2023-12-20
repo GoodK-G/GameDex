@@ -1,0 +1,35 @@
+<h3 id="gameTitle"data-game-id="{{game.id}}">{{game.name}}</h3>
+{{#if game.cover}}
+  <img src="{{game.cover}}" /><br /><br>
+{{/if}}
+
+<a href="{{game.url}}" target="_blank">IGDB rating: {{game.igdb_rating}}</a><br />
+
+{{#if game.release_date}}
+  <p>Release Date: {{formatReleaseDate game.release_date}}</p>
+{{else}}
+  <p>Release Date: Not Available</p>
+{{/if}}
+
+{{#if (hasGame game.id userGames)}}
+<button type="button" id="removeBtn">Remove Game from Library</button><br /><br>
+{{else}}
+<button type="button" id="addBtn">Add Game to Library</button><br /><br>
+{{/if}}
+
+{{#if game.summary}}
+<p>{{game.summary}}</p>
+{{/if}}
+
+<h5>Reviews</h5>
+<a class="btn" href="/review/{{game.id}}">&#65122Add Review</a><br /><br>
+{{#each game.reviews as |review|}}
+{{> reviews}}
+{{/each}}
+
+{{#if (hasGame game.id userGames)}}
+<script src="/js/removeGame.js"></script>
+{{else}}
+<script src="/js/addGame.js"></script>
+{{/if}}
+<script src="/js/reviews.js"></script>

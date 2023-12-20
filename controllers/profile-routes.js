@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { User, Game, Review } = require('../models');
+const withAuth = require('../utils/auth');
 
 // Get route for user profile
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
-    const gameData = await User.findOne({
+    const userData = await User.findOne({
       where: {
         id: req.session.user_id,
       },
@@ -18,14 +19,16 @@ router.get('/', async (req, res) => {
       }],
     });
 
-    res.json(gameData);    
+    const games = userData.games.map((game) => game.get({ plain: true }));
+
+    res.render('user-profile', { games, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   };
 });
 
 // Get route for individual game belonging to user through their profile
-router.get('/games/:gameID', async (req, res) => {
+router.get('/games/:gameID', withAuth, async (req, res) => {
   try {
     const gameData = await Game.findByPk(req.params.gameID);
 
