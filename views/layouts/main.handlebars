@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +8,12 @@
     <link rel="stylesheet" href="/css/style.css" />
 
     <!-- Link to Bootstrap CSS file -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <nav
@@ -44,16 +48,16 @@
             </li>
 
             {{#if loggedIn}}
-            <li class="nav-item">
-              <a id="logout" class="nav-link">Logout</a>
-            </li>
+              <li class="nav-item">
+                <a id="logout" class="nav-link">Logout</a>
+              </li>
             {{else}}
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Log In</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Sign Up</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign Up</a>
+              </li>
             {{/if}}
           </ul>
 
@@ -66,7 +70,11 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" id="searchBtn" type="submit">
+            <button
+              class="btn btn-outline-success"
+              id="searchBtn"
+              type="submit"
+            >
               Search
             </button>
           </form>
@@ -85,13 +93,13 @@
               href="/"
               class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
             >
-              <span class="fs-5 d-none d-sm-inline">Menu</span>
             </a>
             <ul
               class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
               id="menu"
             >
               <!-- Friends tab -->
+              <!--
               <li class="nav-item">
                 <a
                   href="#submenuFriends"
@@ -99,29 +107,33 @@
                   class="nav-link px-0 align-middle"
                 >
                   <i class="fs-4 bi-people"></i>
-                  <span class="ms-1 d-none d-sm-inline">Friends</span>
+                  <span
+                    class="ms-1 d-none d-sm-inline fs-5 text-white"
+                  >Friends</span>
                 </a>
                 <ul
                   class="collapse nav flex-column ms-1"
                   id="submenuFriends"
                   data-bs-parent="#menu"
                 >
-                  <!-- Add friends as needed -->
+                   Add friends as needed
                   <li class="w-100">
                     <a href="#" class="nav-link px-0">
-                      <span class="d-none d-sm-inline">Friend</span> 1</a
-                    >
+                      <span class="d-none d-sm-inline">Friend</span>
+                      1</a>
                   </li>
                   <li>
                     <a href="#" class="nav-link px-0">
-                      <span class="d-none d-sm-inline">Friend</span> 2</a
-                    >
+                      <span class="d-none d-sm-inline">Friend</span>
+                      2</a>
                   </li>
                 </ul>
               </li>
+            -->
             </ul>
             <hr />
             <!-- User dropdown -->
+            <!--
             <div class="dropdown pb-4">
               <a
                 href="#"
@@ -148,6 +160,7 @@
                 <li><a class="dropdown-item" href="#">Sign out</a></li>
               </ul>
             </div>
+            -->
           </div>
         </div>
         <div class="col py-3">{{{body}}}</div>
@@ -155,10 +168,14 @@
     </div>
 
     <!-- Bootstrap JS bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
     <script src="/js/main.js"></script>
     {{#if loggedIn}}
-    <script src="/js/logout.js"></script>
+      <script src="/js/logout.js"></script>
     {{/if}}
   </body>
 </html>
