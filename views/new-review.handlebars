@@ -1,9 +1,19 @@
+<h2 class="h2 mb-5">Add a Review!</h2>
+
 <form id="reviewForm">
-    <label for="rating">Rating:</label>
-    <input type="text" id="rating" name="rating"><br />
-    <label for="content">Review:</label>
-    <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
-    <button type="submit" id="submit">Submit</button>
+    <div class="row">
+        <div class="mb-3 col-lg-4">
+            <label for="rating" class="form-label">Rating (1-10):</label>
+            <input type="text" class="form-control" id="rating" name="rating"><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-lg-4">
+            <label for="content" class="form-label">Review:</label>
+            <textarea id="content" class="form-control" name="content" rows="4" cols="50"></textarea><br>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
 </form>
 
 <script src="/js/reviews.js"></script>
